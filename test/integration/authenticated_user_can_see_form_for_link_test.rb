@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AuthenticatedUserCanSubmitLinkTest < ActionDispatch::IntegrationTest
+class AuthenticatedUserCanSeeFormLinkTest < ActionDispatch::IntegrationTest
   test "authenticated user can login and see a form for a new link" do
     visit root_path
     assert_equal "/", current_path
@@ -37,20 +37,5 @@ class AuthenticatedUserCanSubmitLinkTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Thoughtbox")
     assert page.has_content?('Url')
     assert page.has_content?('Title')
-
-    fill_in "Url", with: 'http://espn.go.com'
-    fill_in "Title", with: 'ESPN'
-
-    click_on "Submit"
-
-    assert page.has_content?("ESPN")
-
-    fill_in "Url", with: 'http://contain.com'
-    fill_in "Title", with: 'CNN'
-
-    click_on "Submit"
-
-    assert page.has_content?("CNN")
-    assert page.has_content?("ESPN")
   end
 end

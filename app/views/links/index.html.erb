@@ -10,3 +10,16 @@ Thoughtbox
   <%= f.text_field :title %>
   <%= f.submit "Submit Link" %>
 <% end %>
+
+<h3>All the Links</h1>
+
+<% @links.each do |link| %>
+  <div class="row" data-id="<%=link.id%>">
+    <ul class="col"><%= link.title %>
+      <li>Url: <%= link.url %></li>
+      <li class="read-status">Read? <%= link.read %></li>
+    </ul>
+    <button class="read">Mark as Read</button>
+    <button class="unread">Mark as Unread</button>
+  </div>
+<% end %>
