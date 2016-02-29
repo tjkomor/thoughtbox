@@ -1,7 +1,7 @@
 require "test_helper"
 
-class UnauthenticatedUserCanLogOutTest < ActionDispatch::IntegrationTest
-  test "unauthentivated user can logout" do
+class AuthenticatedUserCanSubmitLinkTest < ActionDispatch::IntegrationTest
+  test "authenticated user can login and see a form for a new link" do
     visit root_path
     assert_equal "/", current_path
 
@@ -17,13 +17,26 @@ class UnauthenticatedUserCanLogOutTest < ActionDispatch::IntegrationTest
     fill_in 'Password confirmation', with: 'password'
     click_on 'Create Account'
     assert_equal "/links", current_path
+
     assert page.has_content?("Thoughtbox")
 
-    assert page.has_content?("Logout")
+    visit root_path
 
-    click_on "Logout"
+    assert_equal "/", current_path
 
     assert page.has_content?("Login")
-    assert_equal "/", current_path
+
+    click_on "Login"
+
+    fill_in 'Username', with: 'tyler'
+    fill_in 'Password', with: 'password'
+
+    click_on 'Login'
+
+    assert_equal "/links", current_path
+    assert page.has_content?("Thoughtbox")
+    save_and_open_page
+    assert page.has_content?('Url')
+    assert page.has_content?('Title')
   end
 end
