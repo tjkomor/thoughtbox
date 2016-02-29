@@ -11,11 +11,13 @@ Thoughtbox
   <%= f.submit "Submit Link" %>
 <% end %>
 
-<h3>All the Links</h1>
+<h3>My Links</h1>
 
 <% @links.each do |link| %>
-  <div class="row" data-id="<%=link.id%>">
-    <ul class="col"><%= link.title %>
+<div class="row"  data-id="<%=link.id%>"
+                  boolean-status="<%=link.read?%>"
+                  id="link-<%=link.id%>">
+   <ul class="col"><%= link.title %>
       <li>Url: <%= link.url %></li>
       <li class="read-status">Read? <%= link.read %></li>
     </ul>
