@@ -14,6 +14,12 @@ function buttonListeners(){
       changeStatus($(this).parent(), 'false');
     })
   });
+
+  $('.edit').each(function(index, button){
+    $(button).on('click', function(){
+      editTitle($(this).parent(), "ok");
+    })
+  });
 }
 
 function changeStatus(link, status) {
@@ -34,4 +40,32 @@ function changeStatus(link, status) {
         }
     });
   }
+}
+
+function editTitle(link, content){
+  // $(".edit").click(function() {
+  //   var data = {link: {
+  //     edit: content
+  //   }}
+  //   $(link.title).replaceWith(content);
+
+    $(".edit").click(function() {
+    var input = $("<input>", { val: $(this).text(),
+                               type: "text" });
+    $(this).replaceWith(input);
+    input.select();
+
+
+  $.ajax({
+      url: "api/v1/links/" + link.attr('data-id'),
+      method: "PUT",
+      data: data,
+      success: function(){
+        $(link).find('data-id').text('Url ' + content);
+      },
+      error: function(response){
+        console.log(response, "edit title failed")
+      }
+    });
+  });
 }
