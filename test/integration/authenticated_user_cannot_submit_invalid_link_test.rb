@@ -28,6 +28,7 @@ class AuthenticatedUserCannotSubmitInvalidLinkTest < ActionDispatch::Integration
     fill_in "Title", with: 'not gonna work'
 
     click_on "Submit"
+    
     assert_equal "/links", current_path
     fill_in "Url", with: 'http://espn.go.com'
     fill_in "Title", with: 'ESPN'

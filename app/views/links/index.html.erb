@@ -11,15 +11,21 @@ Thoughtbox
   <%= f.submit "Submit Link" %>
 <% end %>
 
-<h3>All the Links</h1>
+<h3>My Links</h1>
 
-<% @links.each do |link| %>
-  <div class="row" data-id="<%=link.id%>">
-    <ul class="col"><%= link.title %>
+<div class="links">
+
+  <% @links.each do |link| %>
+<div class="row"  data-id="<%=link.id%>"
+                  boolean-status="<%=link.read?%>"
+                  id="link-<%=link.id%>">
+   <ul class="col" contenteditable="false"> <h3><%= link.title %></h3>
       <li>Url: <%= link.url %></li>
       <li class="read-status">Read? <%= link.read %></li>
     </ul>
     <button class="read">Mark as Read</button>
     <button class="unread">Mark as Unread</button>
+    <button class="edit">Edit</button>
   </div>
+</div>
 <% end %>
